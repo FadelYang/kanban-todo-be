@@ -9,7 +9,7 @@ import { checkJwtKey } from '../utils/checkJwtKey';
 export const authServie = {
   login: async (data: LoginUserType) => {
     const user: UserType | null = await userRepository.getByEmail(data.email);
-    const { password, ...safeUser } = user;
+    const { password, id, ...safeUser } = user;
 
     if (!(await compare(data.password, user.password))) {
       throw new Error("Invalid credentials");
