@@ -8,5 +8,11 @@ export const boardRepository = {
 
   createMany: async (data: CreateBoardInput[]) => {
     return await prisma.board.createMany({ data });
+  },
+
+  getSpesific: async(query: Object) => {
+    return await prisma.board.findFirst({
+      where: query
+    })
   }
 };
