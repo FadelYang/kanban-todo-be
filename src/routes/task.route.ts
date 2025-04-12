@@ -8,5 +8,6 @@ taskRouter.get("/", authMiddleware, taskController.getDetail);
 taskRouter.post("/:board_id", authMiddleware, taskController.create);
 taskRouter.put("/:task_id", authMiddleware, taskController.update);
 taskRouter.delete("/:task_id", authMiddleware, taskController.delete);
+taskRouter.put("/:task_id/status", authMiddleware, taskController.updateTaskStatus)
 
 export default taskRouter;

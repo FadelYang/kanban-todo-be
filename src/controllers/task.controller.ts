@@ -43,7 +43,7 @@ export const taskController = {
     try {
       const data = updateTaskSchema.parse(req.body);
       const { task_id } = req.params;
-      const updatedTask= await taskService.update(data, +task_id);
+      const updatedTask = await taskService.update(data, +task_id);
       res.status(201).json({
         message: "Sucess update a task",
         data: updatedTask
@@ -61,6 +61,22 @@ export const taskController = {
         message: "Success delete a task",
         data: deletedTask
       });
+    } catch (error) {
+      checkError(res, next, error);
+    }
+  },
+
+  updateTaskStatus: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { task_id } = req.params;
+      const { reqBody } = insertUserSubToReqBody(req);
+      const data = updateTaskSchema.parse(reqBody);
+      if (!data.user_id) throw new Error("User id not found")
+      const {updatedTask, updatedTo} = await taskService.updateTaskStatus(data, +task_id, data.user_id)
+      res.status(201).json({
+        message: `Success update task to ${updatedTo.name.toLowerCase()}`,
+        data: updatedTask
+      })
     } catch (error) {
       checkError(res, next, error);
     }
