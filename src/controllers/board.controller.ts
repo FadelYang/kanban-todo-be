@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { createBoardSchema, updateBoardSchema } from '../schema/board.schema';
 import { boardService } from '../services/board.service';
 import { checkError } from '../utils/errors';
-import { AuthenticatedRequest } from '../middlewares/authMiddleware';
+import { AuthenticatedRequest } from '../middlewares/auth.middleware';
 
 export const boardController = {
   getDetail: async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
