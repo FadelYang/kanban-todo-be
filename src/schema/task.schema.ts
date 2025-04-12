@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const createTaskSchema = z.object({
   title: z.string().max(25),
-  description: z.string().max(255).nullable(),
+  description: z.string().max(255).nullable().optional(),
   user_id: z.number(),
   board_id: z.number()
 });
