@@ -25,6 +25,8 @@ export const taskController = {
 
   create: async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     try {
+      const { board_id } = req.params;
+      req.body.board_id = +board_id;
       const { reqBody } = insertUserSubToReqBody(req);
       const data = createTaskSchema.parse(reqBody);
       const createdTask = await taskService.create(data);

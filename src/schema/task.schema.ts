@@ -12,7 +12,7 @@ export const updateTaskSchema = z.object({
   description: z.string().max(255).nullable().optional(),
   user_id: z.number().optional(),
   board_id: z.number().optional()
-})
+});
 
-export type CreateTaskInput = z.infer<typeof createTaskSchema>
-export type UpdateTaskInput = z.infer<typeof updateTaskSchema>
+export type CreateTaskInput = z.infer<typeof createTaskSchema>;
+export type UpdateTaskInput = z.infer<typeof updateTaskSchema>;
