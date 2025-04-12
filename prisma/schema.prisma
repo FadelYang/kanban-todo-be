@@ -40,7 +40,6 @@ model Task {
   id           Int      @id @default(autoincrement())
   title        String
   description  String?
-  is_completed Boolean  @default(false)
   board_id     Int
   user_id      Int
   created_at   DateTime @default(now())
