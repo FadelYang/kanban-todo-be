@@ -11,4 +11,10 @@ export const createUserSchema = z.object({
     .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
 });
 
+export type UserType = {
+  id: number
+  email: string
+  password: string
+}
+
 export type CreateUserInput = z.infer<typeof createUserSchema>
