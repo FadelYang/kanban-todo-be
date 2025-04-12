@@ -3,12 +3,13 @@ import { createBoardSchema, updateBoardSchema } from '../schema/board.schema';
 import { boardService } from '../services/board.service';
 import { checkError } from '../utils/errors';
 import { AuthenticatedRequest } from '../middlewares/auth.middleware';
+import { insertUserSubToReqBody } from '../utils/insertUserSubToReqBody';
 
 export const boardController = {
   getDetail: async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     try {
       const { board_id } = req.params;
-      const userId = req.user?.sub;
+      const { userId } = insertUserSubToReqBody(req);
       const boardDetail = await boardService.getSpesific({
         id: board_id,
         user_id: userId
@@ -22,9 +23,10 @@ export const boardController = {
     }
   },
 
-  create: async (req: Request, res: Response, next: NextFunction) => {
+  create: async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     try {
-      const data = createBoardSchema.parse(req.body);
+      const { reqBody } = insertUserSubToReqBody(req);
+      const data = createBoardSchema.parse(reqBody);
       const createdBoard = await boardService.create(data);
       res.status(201).json({
         message: "Success create new board",
@@ -35,7 +37,7 @@ export const boardController = {
     }
   },
 
-  update: async (req: Request, res: Response, next: NextFunction) => {
+  update: async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     try {
       const data = updateBoardSchema.parse(req.body);
       const { board_id } = req.params;
