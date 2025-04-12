@@ -12,7 +12,10 @@ export const boardRepository = {
 
   getSpesific: async (query: Object) => {
     return await prisma.board.findFirst({
-      where: query
+      where: query,
+      include: {
+        Task: true
+      }
     });
   },
 
