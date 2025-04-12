@@ -49,7 +49,7 @@ export const authServie = {
     };
 
     const newAccessToken = jwt.sign(newPayLoad, jwtSecretKey, {
-      expiresIn: '15m'
+      expiresIn: '24h'
     });
 
     const newRefreshToken = jwt.sign(newPayLoad, jwtRefreshKey, {
