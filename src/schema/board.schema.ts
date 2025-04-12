@@ -1,4 +1,4 @@
-import { number, z } from "zod";
+import { z } from "zod";
 
 export const createBoardSchema = z.object({
   name: z.string().max(25),

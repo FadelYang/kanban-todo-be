@@ -7,4 +7,4 @@ export const createTaskSchema = z.object({
   board_id: z.number()
 });
 
-export type CreateBoardInput = z.infer<typeof createTaskSchema>
+export type CreateTaskInput = z.infer<typeof createTaskSchema>
