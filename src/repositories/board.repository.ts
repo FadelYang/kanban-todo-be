@@ -19,6 +19,12 @@ export const boardRepository = {
     });
   },
 
+  getMany: async (query: Object) => {
+    return await prisma.board.findMany({
+      where: query
+    })
+  },
+
   update: async (data: UpdateBoardInput, boardId: number) => {
     return await prisma.board.update({
       where: {
