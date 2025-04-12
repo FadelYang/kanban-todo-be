@@ -3,11 +3,11 @@ import { CreateUserInput } from '../schema/user.schema';
 
 export const userRepository = {
   create: async (data: CreateUserInput) => {
-    return prisma.user.create({ data });
+    return await prisma.user.create({ data });
   },
 
   getById: async (userId: number) => {
-    return prisma.user.findUnique({
+    return await prisma.user.findUnique({
       where: {
         id: userId
       }
@@ -15,7 +15,7 @@ export const userRepository = {
   },
 
   getByEmail: async (userEmail: string) => {
-    return prisma.user.findUniqueOrThrow({
+    return await prisma.user.findUniqueOrThrow({
       where: {
         email: userEmail
       }
