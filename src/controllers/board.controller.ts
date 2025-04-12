@@ -10,6 +10,7 @@ export const boardController = {
     try {
       const { board_id } = req.params;
       const { userId } = insertUserSubToReqBody(req);
+      
       const boardDetail = await boardService.getSpesific({
         id: board_id,
         user_id: userId
