@@ -24,7 +24,7 @@ export const authServie = {
     const { jwtSecretKey, jwtRefreshKey } = checkJwtKey();
 
     const accessToken = jwt.sign(payload, jwtSecretKey, {
-      expiresIn: '15m'
+      expiresIn: '24h'
     });
 
     const refreshToken = jwt.sign(payload, jwtRefreshKey, {
