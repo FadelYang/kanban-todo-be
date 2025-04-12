@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { createUserSchema } from '../schema/user.schema';
-import { userService } from '../services/user.servie';
+import { userService } from '../services/user.service';
 import { hash } from 'bcrypt';
 import { checkError } from '../utils/errors';
 
