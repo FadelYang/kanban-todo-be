@@ -15,7 +15,13 @@ export const checkError = (res: Response, next: NextFunction, error: any) => {
   }
   if (error.message === "Invalid credentials") {
     res.status(400).json({ error: "Email or password is wrong" });
-  }  
+  }
+  if (error.status === 400) {
+    res.status(400).json({ message: error.message });
+  }
+  if (error.satus === 404) {
+    res.status(404).json({message: error.message});
+  }
   res.status(500).json({ message: "Internal Server Error", error });
   next(error);
 };

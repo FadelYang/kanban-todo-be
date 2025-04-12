@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import { boardRepository } from '../repositories/board.repository';
 import { taskRepository } from '../repositories/task.repository';
 import { userRepository } from '../repositories/user.repository';
@@ -33,7 +34,7 @@ export const userService = {
     });
 
     if (!todoBoard) {
-      throw new Error("Board not found");
+      throw createHttpError(404, "Board not found");
     }
 
     // create sample task

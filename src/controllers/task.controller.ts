@@ -4,6 +4,7 @@ import { AuthenticatedRequest } from '../middlewares/auth.middleware';
 import { insertUserSubToReqBody } from '../utils/insertUserSubToReqBody';
 import { taskService } from '../services/task.service';
 import { createTaskSchema, updateTaskSchema } from '../schema/task.schema';
+import createHttpError from 'http-errors';
 
 export const taskController = {
   getDetail: async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
@@ -71,7 +72,7 @@ export const taskController = {
       const { task_id } = req.params;
       const { reqBody } = insertUserSubToReqBody(req);
       const data = updateTaskSchema.parse(reqBody);
-      if (!data.user_id) throw new Error("User id not found")
+      if (!data.user_id) throw createHttpError(404, "User id not found")
       const {updatedTask, updatedTo} = await taskService.updateTaskStatus(data, +task_id, data.user_id)
       res.status(201).json({
         message: `Success update task to ${updatedTo.name.toLowerCase()}`,

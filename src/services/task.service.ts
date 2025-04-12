@@ -2,6 +2,7 @@ import { taskRepository } from './../repositories/task.repository';
 import { CreateTaskInput, UpdateTaskInput } from '../schema/task.schema';
 import { boardRepository } from '../repositories/board.repository';
 import { Board } from '../../generated/prisma';
+import createHttpError from 'http-errors';
 
 export const taskService = {
   create: async (data: CreateTaskInput) => {
@@ -26,12 +27,8 @@ export const taskService = {
       id: data.board_id
     });
 
-    if (!updatedTo) {
-      throw new Error("Board not found");
-    }
-
     if (updatedTo.user_id !== userId) {
-      throw new Error("You can't access the board");
+      throw createHttpError(400, "You can't access the board");
     }
 
     const updatedTask = await taskRepository.update(data, taskId);

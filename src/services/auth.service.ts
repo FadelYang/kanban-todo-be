@@ -5,6 +5,7 @@ import { UserType } from '../schema/user.schema';
 import { randomUUID } from 'crypto';
 import jwt from "jsonwebtoken";
 import { checkJwtKey } from '../utils/checkJwtKey';
+import createHttpError from 'http-errors';
 
 export const authServie = {
   login: async (data: LoginUserType) => {
@@ -12,7 +13,7 @@ export const authServie = {
     const { password, id, ...safeUser } = user;
 
     if (!(await compare(data.password, user.password))) {
-      throw new Error("Invalid credentials");
+      throw createHttpError(400, "Invalid credentials");
     }
 
     const payload: LoginPayload = {
