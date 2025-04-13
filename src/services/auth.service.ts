@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 import { checkJwtKey } from '../utils/checkJwtKey';
 import createHttpError from 'http-errors';
 
-export const authServie = {
+export const authService = {
   login: async (data: LoginUserType) => {
     const user: UserType | null = await userRepository.getByEmail(data.email);
     const { password, id, ...safeUser } = user;
@@ -25,7 +25,7 @@ export const authServie = {
     const { jwtSecretKey, jwtRefreshKey } = checkJwtKey();
 
     const accessToken = jwt.sign(payload, jwtSecretKey, {
-      expiresIn: '24h'
+      expiresIn: '1m'
     });
 
     const refreshToken = jwt.sign(payload, jwtRefreshKey, {
