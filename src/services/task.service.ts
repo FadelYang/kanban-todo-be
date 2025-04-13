@@ -13,6 +13,10 @@ export const taskService = {
     return await taskRepository.getSpesific(query);
   },
 
+  getAll: async (query: Object) => {
+    return await taskRepository.getAll(query);
+  },
+
   update: async (data: UpdateTaskInput, taskId: number) => {
     return await taskRepository.update(data, taskId);
   },

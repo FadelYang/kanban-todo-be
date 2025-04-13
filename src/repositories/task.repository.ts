@@ -12,6 +12,12 @@ export const taskRepository = {
     });
   },
 
+  getAll: async (query: Object) => {
+    return await prisma.task.findMany({
+      where: query,
+    });
+  },
+
   update: async (data: UpdateTaskInput, taskId: number) => {
     return await prisma.task.update({
       where: {

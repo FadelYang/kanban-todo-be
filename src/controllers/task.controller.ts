@@ -24,6 +24,21 @@ export const taskController = {
     }
   },
 
+  getAll: async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = insertUserSubToReqBody(req);
+      const tasks = await taskService.getAll({
+        user_id: userId
+      })
+      res.status(200).json({
+        message: "Success get tasks data",
+        data: tasks
+      })
+    } catch (error) {
+      checkError(res, next, error);
+    }
+  },
+
   create: async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     try {
       const { board_id } = req.params;
