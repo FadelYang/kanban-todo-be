@@ -14,7 +14,7 @@ export const checkError = (res: Response, next: NextFunction, error: any) => {
     res.status(404).json({ message: "Record not found", meta: error.meta });
   }
   if (error.message === "Invalid credentials") {
-    res.status(400).json({ error: "Email or password is wrong" });
+    res.status(400).json({ message: "Email or password is wrong" });
   }
   if (error.status === 400) {
     res.status(400).json({ message: error.message });
