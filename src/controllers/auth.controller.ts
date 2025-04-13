@@ -46,5 +46,9 @@ export const authController = {
     } catch (error) {
       checkError(res, next, error);
     }
+  },
+
+  check: (req: Request, res: Response) => {
+    res.status(200).json({ isAuthenticated: true });
   }
 };
