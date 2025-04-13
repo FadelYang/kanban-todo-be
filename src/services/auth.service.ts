@@ -25,7 +25,7 @@ export const authService = {
     const { jwtSecretKey, jwtRefreshKey } = checkJwtKey();
 
     const accessToken = jwt.sign(payload, jwtSecretKey, {
-      expiresIn: '1m'
+      expiresIn: '12h'
     });
 
     const refreshToken = jwt.sign(payload, jwtRefreshKey, {
@@ -50,7 +50,7 @@ export const authService = {
     };
 
     const newAccessToken = jwt.sign(newPayLoad, jwtSecretKey, {
-      expiresIn: '24h'
+      expiresIn: '12h'
     });
 
     const newRefreshToken = jwt.sign(newPayLoad, jwtRefreshKey, {
