@@ -10,15 +10,30 @@ export const boardController = {
     try {
       const { board_id } = req.params;
       const { userId } = insertUserSubToReqBody(req);
-      
+
       const boardDetail = await boardService.getSpesific({
-        id: board_id,
+        id: +board_id,
         user_id: userId
       });
       res.status(200).json({
         message: "Success get board detail",
         data: boardDetail
       });
+    } catch (error) {
+      checkError(res, next, error);
+    }
+  },
+
+  getAll: async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = insertUserSubToReqBody(req);
+      const boards = await boardService.getAll({
+        user_id: userId
+      })
+      res.status(200).json({
+        message: "Succes get boards data",
+        data: boards
+      })
     } catch (error) {
       checkError(res, next, error);
     }

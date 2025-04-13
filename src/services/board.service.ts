@@ -14,6 +14,10 @@ export const boardService = {
     return await boardRepository.getSpesific(query);
   },
 
+  getAll: async (query: Object) => {
+    return await boardRepository.getMany(query);
+  },
+
   update: async (data: UpdateBoardInput, boardId: number) => {
     return await boardRepository.update(data, boardId);
   },

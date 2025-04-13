@@ -21,7 +21,13 @@ export const boardRepository = {
 
   getMany: async (query: Object) => {
     return await prisma.board.findMany({
-      where: query
+      where: query,
+      include: {
+        Task: true
+      },
+      orderBy: {
+        id: "asc"
+      }
     })
   },
 
