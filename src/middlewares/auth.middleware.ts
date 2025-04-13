@@ -10,7 +10,7 @@ export interface AuthenticatedRequest extends Request {
 
 export const authMiddleware = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
-  const refreshHeader = req.headers["x-refresh-token"] as string;
+  const refreshHeader = req.headers["x-refresh-token"] ? req.headers["x-refresh-token"] as string : req.cookies.refreshToken as string;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     res.status(401).json({ message: "Unauthorized: Missing token" });
@@ -49,8 +49,14 @@ export const authMiddleware = async (req: AuthenticatedRequest, res: Response, n
       try {
         const { newAccessToken, newRefreshToken } = await authService.refreshToken(refreshHeader);
 
-        res.setHeader("x-access-token", newAccessToken);
         res.setHeader("x-refresh-token", newRefreshToken);
+
+        res.cookie("refreshToken", newRefreshToken, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "strict",
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
 
         const newPayload = jwt.decode(newAccessToken) as JwtPayload;
 
