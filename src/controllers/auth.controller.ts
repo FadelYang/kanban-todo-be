@@ -16,6 +16,13 @@ export const authController = {
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
+      res.cookie("accessToken", response.accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+
       res.status(200).json({
         message: "Success login",
         data: response

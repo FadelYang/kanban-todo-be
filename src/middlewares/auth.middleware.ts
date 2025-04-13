@@ -10,14 +10,22 @@ export interface AuthenticatedRequest extends Request {
 
 export const authMiddleware = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
+  const cookieAccessToken = req.cookies.accessToken;
   const refreshHeader = req.headers["x-refresh-token"] ? req.headers["x-refresh-token"] as string : req.cookies.refreshToken as string;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  let token: string | null = null;
+
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    token = authHeader.split(" ")[1];
+  } else if (cookieAccessToken) {
+    token = cookieAccessToken;
+  }
+
+  if (!token) {
     res.status(401).json({ message: "Unauthorized: Missing token" });
     return;
   }
 
-  const token = authHeader.split(" ")[1];
   const { jwtSecretKey } = checkJwtKey();
 
   try {
