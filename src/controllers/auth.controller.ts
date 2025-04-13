@@ -9,6 +9,13 @@ export const authController = {
       const data = loginUserSchema.parse(req.body);
       const response = await authService.login(data);
 
+      res.cookie("refreshToken", response.refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+
       res.status(200).json({
         message: "Success login",
         data: response
