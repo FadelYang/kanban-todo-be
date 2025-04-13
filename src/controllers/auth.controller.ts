@@ -25,11 +25,19 @@ export const authController = {
     }
   },
 
-  logout: async(res: Response, next: NextFunction) => {
+  logout: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.clearCookie("refreshToken");
+      res.clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict"
+      });
+
+      res.status(200).json({
+        message: "Success logout success",
+      });
     } catch (error) {
-      checkError(res, next, error)
+      checkError(res, next, error);
     }
   }
 };
