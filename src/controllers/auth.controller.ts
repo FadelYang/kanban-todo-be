@@ -23,5 +23,13 @@ export const authController = {
     } catch (error) {
       checkError(res, next, error);
     }
+  },
+
+  logout: async(res: Response, next: NextFunction) => {
+    try {
+      res.clearCookie("refreshToken");
+    } catch (error) {
+      checkError(res, next, error)
+    }
   }
 };
