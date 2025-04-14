@@ -12,7 +12,7 @@ const allowedOrigins = [
   process.env.CLIENT_URL,
   "http://localhost:5173",
   "https://kanban-todo-fe.vercel.app/"
-]
+];
 
 app.use(cors({
   origin: function (origin, callback) {
