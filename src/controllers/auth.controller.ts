@@ -12,14 +12,14 @@ export const authController = {
       res.cookie("refreshToken", response.refreshToken, {
         httpOnly: true,
         secure: true,
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
       res.cookie("accessToken", response.accessToken, {
         httpOnly: true,
         secure: true,
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
@@ -37,13 +37,13 @@ export const authController = {
       res.clearCookie("refreshToken", {
         httpOnly: true,
         secure: true,
-        sameSite: "strict"
+        sameSite: "none"
       });
 
       res.clearCookie("accessToken", {
         httpOnly: true,
         secure: true,
-        sameSite: "strict"
+        sameSite: "none"
       });
 
       res.status(200).json({
