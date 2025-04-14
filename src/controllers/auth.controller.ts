@@ -40,6 +40,12 @@ export const authController = {
         sameSite: "strict"
       });
 
+      res.clearCookie("accessToken", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict"
+      });
+
       res.status(200).json({
         message: "Success logout success",
       });
